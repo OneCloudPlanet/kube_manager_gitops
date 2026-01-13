@@ -1,0 +1,51 @@
+configuration: {}
+
+credentials:
+  useSecret: true
+  existingSecret: "velero-creds"
+
+initContainers:
+- image: velero/velero-plugin-for-aws:v1.12.0
+  imagePullPolicy: IfNotPresent
+  name: velero-plugin-for-aws
+  volumeMounts:
+  - mountPath: /target
+    name: plugins
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    additionalLabels:
+      release: prometheus-operator
+    enabled: true
+  nodeAgentPodMonitor:
+    autodetect: true
+    enabled: true
+
+deployNodeAgent: true
+
+nodeAgent:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 300m
+      memory: 256Mi
+  tolerations:
+  - effect: NoSchedule
+    key: kubernetes.azure.com/scalesetpriority
+    operator: Equal
+    value: spot
+
+schedules:
+  postgres-snap:
+    disabled: false
+    schedule: "0 0 * * *"
+    useOwnerReferencesInBackup: false
+    template:
+      ttl: "48h"
+      snapshotVolumes: true
+      storageLocation: default
+      includedNamespaces:
+      - cnpg

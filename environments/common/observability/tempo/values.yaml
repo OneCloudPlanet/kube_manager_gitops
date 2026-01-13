@@ -1,0 +1,34 @@
+metricsGenerator:
+  enabled: true
+  config:
+    storage:
+      path: /var/tempo/wal
+      wal:
+      remote_write_flush_deadline: 1m
+      remote_write:
+       - url: http://prometheus-stack-kube-prom-prometheus.monitoring:9090/api/v1/write
+storage:
+  trace:
+    backend: azure
+    azure:
+      container_name: ${TEMPO_CONTAINER_NAME}
+      storage_account_name: ${TEMPO_ACCOUNT_NAME}
+      storage_account_key: ${TEMPO_ACCOUNT_KEY}
+
+traces:
+  otlp:
+    http:
+      enabled: true
+    grpc:
+      enabled: true
+
+metaMonitoring:
+  serviceMonitor:
+    enabled: true
+    labels:
+      prometheus: system
+
+global_overrides:
+  metrics_generator_processors:
+    - service-graphs
+    - span-metrics

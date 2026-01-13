@@ -1,0 +1,31 @@
+replicaCount: 3
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: "app.kubernetes.io/name"
+            operator: In
+            values:
+            - cloudnative-pg
+        topologyKey: "kubernetes.io/hostname"
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: "app.kubernetes.io/name"
+            operator: In
+            values:
+            - cloudnative-pg
+        topologyKey: "failure-domain.beta.kubernetes.io/zone"
+
+monitoring:
+  # -- Specifies whether the monitoring should be enabled. Requires Prometheus Operator CRDs.
+  podMonitorEnabled: true
+  grafanaDashboard:
+    create: true
+    # -- Allows overriding the namespace where the ConfigMap will be created, defaulting to the same one as the Release.
+    namespace: "cnpg"
+    sidecarLabelValue: "1"

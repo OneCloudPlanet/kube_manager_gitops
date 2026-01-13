@@ -1,0 +1,49 @@
+# Flux CLI files
+.flux/
+
+# Kubernetes secrets (if accidentally created locally)
+*-secret.yaml
+*.key
+*.crt
+*.pem
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Environment files with sensitive data
+.env
+.env.local
+secrets/
+
+# Helm
+charts/*.tgz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+settings.json
+tmp
+
+# SOPS
+.decrypted~*.yaml
+**/.decrypted~*.yaml
+**/.decrypted~*.yml

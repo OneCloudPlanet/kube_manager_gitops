@@ -1,0 +1,21 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: oauth2-proxy-policy
+  namespace: istio-ingress
+spec:
+  action: CUSTOM
+  provider:
+    name: oauth2-proxy
+  rules:
+    - to:
+        - operation:
+            hosts:
+              - alertmanager.${HOST}
+              - prometheus.${HOST}
+              - jaeger.${HOST}
+              - kiali.${HOST}
+              - eventstore.${HOST}
+  selector:
+    matchLabels:
+      app: istio-ingress

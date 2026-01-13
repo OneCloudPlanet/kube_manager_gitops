@@ -1,0 +1,33 @@
+creation_rules:
+    - path_regex: .*.yaml
+      encrypted_regex: ^(data|stringData)$
+      pgp: EF552EBA773641B396D26658E1F56350C447581E
+    - path_regex: git_pass
+      pgp: EF552EBA773641B396D26658E1F56350C447581E
+sops:
+    lastmodified: "2026-01-12T09:13:52Z"
+    mac: ENC[AES256_GCM,data:gFq42QbpIKUbxkKpC5sYlC+VBnWAago23eqAHT/FtaVhheTL1LdG8bgcy/cDcqGgBf8gceQY8aM0E3p2Ju5xc74kwnUh9WtYtMsZpjbGaGqYTlXoTRS7AvguFHXK+VcFZVDiPcOQtBoHIDiY70oFJVtc/Qa6QJal053XnZBI8XU=,iv:/ee3P/bUOB6FwZszK9anMCDTYh/AmnEnS8GDA7pcxqw=,tag:2sPRcOPKZWxKDOdmcNOoiQ==,type:str]
+    pgp:
+        - created_at: "2026-01-12T09:13:51Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3McSkAh3rFhARAAu2KOkYjt7vO8ZB2zzmjBrAQwY8cTsrn7vYo14KBTz1EJ
+            8XaLWP1aEFafbXNKNqseiYS5NtpSRUZ7+aQ+/b9Ppsv7zydIExz8RLrwt18GxuTL
+            L5XzWnOIi5V1h6exdSJPPxxYaSfxKOyTlh8R8Gmo7aA2xS2ofEdEZKz4Zn47YsZ5
+            jF00gx1j/srhvFkx3otcreVm9QCZXa9zScJq0Qi/MX3M0FUJS9/cPaDH/Edf8y/u
+            RJiuzlzKFn9raMhXaEt8PlcwgJJifuVNf04QGxtCBFQJEWHzThReiNe9DchaDLRD
+            xuw9i9qIdhISWOZn7/wS5AV6860CIZ6k/rcyPr9A4w2rdl5XUCACaDrxhKPXjwEY
+            Gbv4WtbWJserns27uRbC3axYra6iH9E60L9P9nYFTYj9ghjgKoB34hPpClkGIjwa
+            iVzzvfw6uvdv6z5pwEx20NJK6dBSuoK8mluBE5ZR2coQUK9oyzIfhtFS5KyzsALf
+            lDD0S98OOxr1vtt/1JGH9RkqwHCrGRezOW6RYotXbhLJFWefn9SZzqxcxzfH/3Ib
+            peW5E0HxpbELTDKtjQ/OLYDQe18GS0c7gnVkrESUpGwIPcZBCkHRyUG3nY8D0TEI
+            hv4cj/WveKlE++NnYILnE4FZO7jqLtjrOBQUhw6HazWAlShhL8XYnVIzqwZu3MDU
+            aAEJAhBnA0AmlDjdFsw6Sp8v+r+L1D+ewkG+hINA9cKTHK5IW06mmbfP8AtOyyH2
+            KX2s7zTs3kjS87rnonb4UaclGRKq3yloAkO78qZbmBeQQfsAu4evar+drV6RuUZb
+            m5GnrHePq9uF
+            =KZ6m
+            -----END PGP MESSAGE-----
+          fp: EF552EBA773641B396D26658E1F56350C447581E
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

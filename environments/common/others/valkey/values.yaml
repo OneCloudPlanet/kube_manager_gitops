@@ -1,0 +1,25 @@
+auth:
+  password: "${VALKEY_PASSWORD}"
+primary:
+  podAntiAffinityPreset: hard
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 96Mi
+replica:
+  replicaCount: 2
+  podAntiAffinityPreset: hard
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 96Mi
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true

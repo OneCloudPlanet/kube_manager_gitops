@@ -1,0 +1,40 @@
+global:
+  istioNamespace: istio-system
+  proxy:
+    holdApplicationUntilProxyStarts: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 16Mi
+pilot:
+  autoscaleEnabled: true
+  autoscaleMin: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+meshConfig:
+  # accessLogFile: /dev/stdout
+  defaultConfig:
+    proxyMetadata: {}
+    tracing:
+      zipkin:
+        address: jaeger-collector.observability:9411
+  enablePrometheusMerge: true
+  extensionProviders:
+    - envoyExtAuthzHttp:
+        headersToDownstreamOnDeny:
+          - content-type
+          - set-cookie
+        headersToUpstreamOnAllow:
+          - authorization
+          - path
+          - x-auth-request-user
+          - x-auth-request-email
+          - x-auth-request-access-token
+        includeRequestHeadersInCheck:
+          - authorization
+          - cookie
+        port: "80"
+        service: oauth2-proxy.oauth2-proxy.svc.cluster.local
+      name: oauth2-proxy

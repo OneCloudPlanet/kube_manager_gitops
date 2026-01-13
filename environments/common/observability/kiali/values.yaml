@@ -1,0 +1,31 @@
+istio_namespace: "istio-system"
+auth:
+  openshift:
+    client_id_prefix: kiali
+  strategy: anonymous
+
+login_token:
+  signing_key: "${KIALI_SIGNING_KEY}"
+
+external_services:
+  prometheus:
+    url: "http://prometheus-operated.monitoring:9090/"
+  grafana:
+    enabled: true
+    in_cluster_url: 'http://prometheus-stack-grafana.monitoring:80/'
+    url: "https://grafana.${HOST}/"
+  tracing:
+    in_cluster_url: 'http://jaeger-query.observability:16685/jaeger'
+    use_grpc: true
+    url: "https://jaeger.${HOST}/"
+  istio:
+    root_namespace: "istio-system"
+    component_status:
+      components:
+        - app_label: "istiod"
+          is_core: true
+          is_proxy: false
+        - app_label: "istio-ingress"
+          is_core: true
+          is_proxy: true
+          namespace: istio-ingress

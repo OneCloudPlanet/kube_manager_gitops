@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-configs
+  namespace: flux-system
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
+data:
+  PROJECT: "kube-manager"
+  ENVIRONMENT: "dev"
+  HOST: "k8s-dev.ocplanet.cloud"
+  EMAIL_DOMAIN: "info@onecloudplanet.com"
+  ISTIO_VERSION: "1.24.3"
+  CNPG_BUCKET: "k8s-dev-backup"
+  CNPG_ENDPOINTURL: "https://k8s-dev-backup.s3.ua-central-1.ocplanet.cloud"

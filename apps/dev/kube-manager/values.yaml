@@ -1,0 +1,27 @@
+django:
+  debug: "1"
+  allowedHosts: "kube-manager.ocplanet.cloud, k8s-dev.ocplanet.cloud"
+  allowedOrigins: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud"
+  outputIp: "192.168.1.1"
+  logLevel: "INFO"
+
+database:
+  host: "pgbouncer-rw.cnpg.svc.cluster.local"
+  port: "5432"
+  name: "kube-manager"
+
+redis:
+  host: "valkey-master.valkey.svc.cluster.local"
+  port: "6379"
+
+openstack:
+  authUrl: "https://dev-stack.ua-central-1.ocplanet.cloud:5000/v3"
+  domain: "default"
+  region: "default"
+  externalNetwork: "7e800880-26d4-4674-851f-dda4c8a362da"
+  externalSubnet: "c5adf125-ffc9-46a4-8ea9-7c59d275e66f"
+  adminProject: "admin"
+
+s3:
+  domain: "https://k8s-dev-static.s3.ua-central-1.ocplanet.cloud/"
+  bucketName: "k8s-dev-static"

@@ -1,0 +1,87 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: cnpg  
+spec:
+  instances: 3
+
+  # Example of rolling update strategy:
+  # - unsupervised: automated update of the primary once all
+  #                 replicas have been upgraded (default)
+  # - supervised: requires manual supervision to perform
+  #               the switchover of the primary
+  primaryUpdateStrategy: unsupervised
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: app-secret
+
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: 300m
+    limits:
+      memory: "1024Mi"
+      cpu: 300m
+
+  postgresql:
+    parameters:
+      max_slot_wal_keep_size: 10GB
+
+  affinity:
+    enablePodAntiAffinity: true 
+    topologyKey: kubernetes.io/hostname 
+    podAntiAffinityType: preferred
+    additionalPodAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: postgresql
+              operator: In
+              values: 
+                - postgres
+          topologyKey: "topology.kubernetes.io/zone"  
+
+  storage:
+    size: 30Gi
+  walStorage:
+    size: 30Gi
+  
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://${CNPG_BUCKET}"
+      endpointURL: "${CNPG_ENDPOINTURL}"
+      s3Credentials:
+        accessKeyId:
+          name: s3
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
+      data:
+        additionalCommandArgs:
+          - "--min-chunk-size=5MB"
+          - "--read-timeout=60"
+          - "-vv"
+    retentionPolicy: "14d"
+
+  monitoring:
+    enablePodMonitor: true
+
+  managed:
+    roles:
+    - name: onecloud
+      ensure: present
+      comment: "onecloud project user"
+      login: true
+      superuser: false
+      passwordSecret:
+        name: onecloud-secret
