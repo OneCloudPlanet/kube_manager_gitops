@@ -6,14 +6,10 @@ metadata:
 spec:
   interval: 5m
   targetNamespace: ${ENVIRONMENT}
-  chart:
-    spec:
-      chart: kube-manager
-      sourceRef:
-        kind: HelmRepository
-        name: kube-manager
-        namespace: flux-system
-      version: "1.0.0"
+  chartRef:
+    kind: OCIRepository
+    name: kube-manager
+    namespace: flux-system
   install:
     createNamespace: true
   upgrade:
