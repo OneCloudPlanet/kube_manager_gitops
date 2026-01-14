@@ -69,8 +69,6 @@ spec:
     - kind: ConfigMap
       name: kube-manager-values
       valuesKey: values.yaml
-      namespace: flux-system
     - kind: Secret
       name: kube-manager-secrets
       valuesKey: values.yaml
-      namespace: flux-system
