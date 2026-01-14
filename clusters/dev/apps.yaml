@@ -1,12 +1,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-dev
+  name: kube-manager
   namespace: flux-system
 spec:
   dependsOn:
-    - name: others-dev
-    - name: istio-ingress-dev
+    - name: others
+    - name: istio-ingress
   interval: 5m
   path: ./apps/dev
   prune: true

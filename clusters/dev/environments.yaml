@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envconfigs-dev
+  name: envconfigs
   namespace: flux-system
 spec:
   interval: 10m0s
@@ -18,11 +18,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: istio-system-dev
+  name: istio-system
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envconfigs-dev
+    - name: envconfigs
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -44,11 +44,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: istio-ingress-dev
+  name: istio-ingress
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-system-dev
+    - name: istio-system
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -70,11 +70,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: prometheus-stack-dev
+  name: prometheus-stack
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress-dev
+    - name: istio-ingress
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -96,12 +96,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: observability-dev
+  name: observability
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress-dev
-    - name: prometheus-stack-dev
+    - name: istio-ingress
+    - name: prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -123,11 +123,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: others-dev
+  name: others
   namespace: flux-system
 spec:
   dependsOn:
-    - name: prometheus-stack-dev
+    - name: prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -149,13 +149,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envspecific-dev
+  name: envspecific
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envconfigs-dev
-    - name: others-dev
-    - name: istio-ingress-dev
+    - name: envconfigs
+    - name: others
+    - name: istio-ingress
   interval: 10m0s
   sourceRef:
     kind: GitRepository
