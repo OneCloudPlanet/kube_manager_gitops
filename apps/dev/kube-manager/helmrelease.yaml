@@ -18,11 +18,6 @@ spec:
     createNamespace: true
   upgrade:
     cleanupOnFail: true
-  dependsOn:
-    - name: postgres
-      namespace: ${ENVIRONMENT}
-    - name: valkey
-      namespace: ${ENVIRONMENT}
   values:
     global:
       namespace: ${ENVIRONMENT}
