@@ -2,7 +2,6 @@
 .flux/
 
 # Kubernetes secrets (if accidentally created locally)
-*-secret.yaml
 *.key
 *.crt
 *.pem
@@ -26,7 +25,6 @@ Thumbs.db
 # Environment files with sensitive data
 .env
 .env.local
-secrets/
 
 # Helm
 charts/*.tgz
