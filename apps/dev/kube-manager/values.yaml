@@ -26,5 +26,5 @@ openstack:
   adminProject: "admin"
 
 s3:
-  domain: "https://k8s-dev-static.s3.ua-central-1.ocplanet.cloud/"
+  domain: "s3.ua-central-1.ocplanet.cloud"
   bucketName: "k8s-dev-static"
