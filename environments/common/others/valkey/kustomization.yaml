@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: valkey
 resources:
   - namespace.yaml
+  - docker-secret.yaml
   - ocirepository.yaml
   - helmrelease.yaml
 configMapGenerator:

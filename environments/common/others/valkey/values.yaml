@@ -1,3 +1,6 @@
+global:
+  imagePullSecrets:
+    - dockerhub-creds
 auth:
   password: "${VALKEY_PASSWORD}"
 primary:
