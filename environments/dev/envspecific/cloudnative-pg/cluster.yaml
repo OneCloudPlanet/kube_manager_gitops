@@ -84,4 +84,4 @@ spec:
       login: true
       superuser: false
       passwordSecret:
-        name: onecloud-secret
+        name: onecloud-user
