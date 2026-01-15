@@ -9,7 +9,7 @@ django:
   logLevel: "INFO"
 
 database:
-  host: "pgbouncer-rw.cnpg.svc.cluster.local"
+  host: "postgres-rw.cnpg.svc.cluster.local"
   port: "5432"
   name: "kube-manager"
 
