@@ -3,7 +3,7 @@ image:
 
 django:
   debug: "1"
-  allowedHosts: "kube-manager.ocplanet.cloud, k8s-dev.ocplanet.cloud"
+  allowedHosts: "k8s-dev.ocplanet.cloud, *"
   allowedOrigins: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud"
   outputIp: "192.168.1.2"
   logLevel: "INFO"
