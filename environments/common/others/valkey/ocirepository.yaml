@@ -6,4 +6,4 @@ spec:
   interval: 1h
   url: oci://registry-1.docker.io/bitnamicharts/valkey
   ref:
-    tag: 3.0.4
+    tag: 5.1.0
