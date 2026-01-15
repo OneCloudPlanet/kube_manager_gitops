@@ -1,3 +1,6 @@
+image:
+  tag: "latest-dev"
+
 django:
   debug: "1"
   allowedHosts: "kube-manager.ocplanet.cloud, k8s-dev.ocplanet.cloud"
