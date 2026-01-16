@@ -25,7 +25,7 @@ spec:
       server: docker.io
     app:
       enabled: true
-      replicaCount: 3
+      replicaCount: 2
       servicePort: 8000
       resources:
         limits:
@@ -36,7 +36,7 @@ spec:
           memory: 256Mi
     celeryWorker:
       enabled: true
-      replicaCount: 2
+      replicaCount: 3
       resources:
         limits:
           cpu: "1"
