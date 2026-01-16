@@ -7,6 +7,9 @@ configuration:
       config:
         s3ForcePathStyle: "true"
         s3Url: ${CNPG_ENDPOINTURL}
+  volumeSnapshotLocation:
+    - name: default
+      provider: aws
 
 credentials:
   useSecret: true
