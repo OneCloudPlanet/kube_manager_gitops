@@ -1,0 +1,10 @@
+provider: cloudflare
+cloudflare:
+  apiToken: "${CLOUDFLARE_API_TOKEN}"
+  email: "${CLOUDFLARE_EMAIL}"
+  proxied: true
+txtOwnerId: "${ENVIRONMENT}-external-dns"
+domainFilters:
+  - "${DOMAIN}"
+sources:
+  - istio-virtualservice

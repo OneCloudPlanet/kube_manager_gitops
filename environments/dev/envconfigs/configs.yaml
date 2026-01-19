@@ -13,3 +13,5 @@ data:
   ISTIO_VERSION: "1.24.2"
   CNPG_BUCKET: "k8s-dev-backup"
   CNPG_ENDPOINTURL: "https://k8s-dev-backup.s3.ua-central-1.ocplanet.cloud"
+  CLOUDFLARE_EMAIL: "info@onecloudplanet.com"
+  DOMAIN: "ocplanet.cloud"
