@@ -5,7 +5,7 @@ django:
   debug: "1"
   allowedHosts: "k8s-dev.ocplanet.cloud, *"
   allowedOrigins: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud"
-  outputIp: "192.168.1.3"
+  outputIp: "91.211.91.220"
   logLevel: "INFO"
 
 database:
