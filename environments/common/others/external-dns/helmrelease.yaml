@@ -4,10 +4,13 @@ metadata:
   name: external-dns
 spec:
   releaseName: external-dns
-  chartRef:
-    kind: OCIRepository
-    name: external-dns
-    namespace: external-dns
+  chart:
+    spec:
+      chart: external-dns
+      version: "1.20.0"
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
   interval: 1h0m0s
   install:
     remediation:

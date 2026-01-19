@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: external-dns
 resources:
   - namespace.yaml
-  - ocirepository.yaml
+  - helmrepository.yaml
   - helmrelease.yaml
 configMapGenerator:
   - name: external-dns-values
