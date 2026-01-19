@@ -9,6 +9,7 @@ spec:
   servers:
     - hosts:
       - "*.${HOST}"
+      - "${HOST}"
       port:
         name: http-${PROJECT}
         number: 80
@@ -16,7 +17,8 @@ spec:
       tls:
         httpsRedirect: true
     - hosts:
-      - '*.${HOST}'
+      - "*.${HOST}"
+      - "${HOST}"
       port:
         name: https-${PROJECT}
         number: 443
