@@ -7,6 +7,10 @@ metadata:
     app.kubernetes.io/part-of: istio
 spec:
   releaseName: istio-ingress
+  install:
+    disableSchemaValidation: true
+  upgrade:
+    disableSchemaValidation: true
   chart:
     spec:
       version: "${ISTIO_VERSION}"
