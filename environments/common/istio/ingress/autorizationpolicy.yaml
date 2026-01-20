@@ -15,7 +15,6 @@ spec:
               - prometheus.${HOST}
               - jaeger.${HOST}
               - kiali.${HOST}
-              - eventstore.${HOST}
   selector:
     matchLabels:
       app: istio-ingress

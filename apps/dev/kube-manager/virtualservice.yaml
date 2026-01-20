@@ -1,4 +1,4 @@
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: kube-manager
@@ -14,6 +14,6 @@ spec:
             prefix: /
       route:
         - destination:
-            host: kube-manager
+            host: ${ENVIRONMENT}-kube-manager-service
             port:
               number: 8000
