@@ -2,7 +2,7 @@ image:
   tag: "latest-dev"
 
 application:
-  debug: "1"
+  debug: "0"
   allowedHosts: "k8s-dev.ocplanet.cloud, *"
   allowedFrontends: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud" # was: allowedOrigins
   logLevel: "INFO"
