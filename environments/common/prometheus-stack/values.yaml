@@ -38,29 +38,29 @@ prometheus:
             requests:
               storage: 30Gi
 
-  additionalServiceMonitors:
-    - name: "billing-admin"
-      selector:
-        matchLabels:
-          release: billing-admin
-      namespaceSelector:
-        matchNames:
-          - stage
-      endpoints:
-       - port: http
-         path: /metrics
-         interval: 30s
-    - name: "billing-backend"
-      selector:
-        matchLabels:
-          release: billing-backend
-      namespaceSelector:
-        matchNames:
-          - stage
-      endpoints:
-        - port: http
-          path: /metrics
-          interval: 30s
+  # additionalServiceMonitors:
+  #   - name: "billing-admin"
+  #     selector:
+  #       matchLabels:
+  #         release: billing-admin
+  #     namespaceSelector:
+  #       matchNames:
+  #         - stage
+  #     endpoints:
+  #      - port: http
+  #        path: /metrics
+  #        interval: 30s
+  #   - name: "billing-backend"
+  #     selector:
+  #       matchLabels:
+  #         release: billing-backend
+  #     namespaceSelector:
+  #       matchNames:
+  #         - stage
+  #     endpoints:
+  #       - port: http
+  #         path: /metrics
+  #         interval: 30s
 #    - name: billing-admin-metrics
 #      additionalLabels:
 #        release: prometheus-stack
@@ -180,7 +180,7 @@ alertmanager:
         telegram_configs:
         - bot_token: "${TELEGRAM_BOT_TOKEN}"
           api_url: https://api.telegram.org
-          chat_id: -${TELEGRAM_CHAT_ID}
+          chat_id: ${TELEGRAM_CHAT_ID}
           parse_mode: ''
 
 grafana:
@@ -244,7 +244,7 @@ grafana:
         gnetId: 7645
         revision: 114
         datasource: Prometheus
-      istio-:
+      istio-mesh:
         gnetId: 7639
         revision: 114
         datasource: Prometheus
@@ -403,24 +403,24 @@ additionalPrometheusRulesMap:
               description: "Istio pilot duplicate entry error.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       # Velero alert rules:
-      - name: custom.velero.rules
-        rules:
-          - alert: VeleroBackupPartialFailures
-            annotations:
-              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
-            expr: |-
-              velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-            for: 15m
-            labels:
-              severity: warning
-          - alert: VeleroBackupFailures
-            annotations:
-              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
-            expr: |-
-              velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-            for: 15m
-            labels:
-              severity: warning
+      # - name: custom.velero.rules
+      #   rules:
+      #     - alert: VeleroBackupPartialFailures
+      #       annotations:
+      #         message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+      #       expr: |-
+      #         velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+      #       for: 15m
+      #       labels:
+      #         severity: warning
+      #     - alert: VeleroBackupFailures
+      #       annotations:
+      #         message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+      #       expr: |-
+      #         velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+      #       for: 15m
+      #       labels:
+      #         severity: warning
 
       # Fluxcd alert rules:
       - name: custom.flux.rules

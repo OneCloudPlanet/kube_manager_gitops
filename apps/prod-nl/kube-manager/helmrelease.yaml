@@ -1,0 +1,66 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: ${ENVIRONMENT}
+  chartRef:
+    kind: OCIRepository
+    name: kube-manager
+    namespace: flux-system
+  install:
+    createNamespace: false
+  upgrade:
+    cleanupOnFail: true
+  values:
+    global:
+      namespace: ${ENVIRONMENT}
+    image:
+      tag: ""
+      pullPolicy: Always
+    dockerRegistry:
+      enabled: true
+      server: docker.io
+    app:
+      enabled: true
+      replicaCount: 2
+      servicePort: 8000
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 256Mi
+    celeryWorker:
+      enabled: true
+      replicaCount: 3
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 256Mi
+    celeryBeat:
+      enabled: true
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 250m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-manager-values
+      valuesKey: values.yaml
+    - kind: Secret
+      name: kube-manager-secrets
+      valuesKey: values.yaml

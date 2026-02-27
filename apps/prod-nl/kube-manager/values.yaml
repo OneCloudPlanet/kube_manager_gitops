@@ -1,0 +1,24 @@
+application:
+  debug: "0"
+  allowedHosts: "k8s-nl.ocplanet.cloud, *"
+  allowedFrontends: "https://k8s-nl.ocplanet.cloud" # was: allowedOrigins
+  logLevel: "INFO"
+  region: "nl"
+
+database:
+  host: "postgres-rw.cnpg.svc.cluster.local"
+  port: "5432"
+  name: "kube-manager"
+
+redis:
+  host: "valkey-primary.valkey.svc.cluster.local"
+  port: "6379"
+
+openstack:
+  authUrl: "https://pub.eu-west-1.ocplanet.cloud:5000/v3"
+  domain: "default"
+  region: "eu-west-1"
+  externalNetwork: "76d208ac-ba1f-44df-a4a4-2789be70e139"
+  externalSubnet: "f0467537-9538-4155-a35f-12cdf79a9566"
+  adminProject: "admin"
+  outputIp: "91.211.91.220"

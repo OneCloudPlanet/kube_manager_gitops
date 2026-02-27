@@ -6,6 +6,7 @@ resources:
   - namespace.yaml
   - helmrepository.yaml
   - helmrelease.yaml
+  - cloudflare-secret.yaml
 configMapGenerator:
   - name: external-dns-values
     files:
