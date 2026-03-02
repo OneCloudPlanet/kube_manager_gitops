@@ -156,6 +156,7 @@ spec:
     - name: envconfigs
     - name: others
     - name: istio-ingress
+    - name: observability
   interval: 10m0s
   sourceRef:
     kind: GitRepository
