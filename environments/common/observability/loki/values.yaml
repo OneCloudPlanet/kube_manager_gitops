@@ -39,7 +39,6 @@ loki:
         access_key_id: ${LOKI_ACCESS_KEY_ID}
         secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
         insecure: false
-        s3ForcePathStyle: true
 
   storage_config:
     use_thanos_objstore: true
