@@ -9,7 +9,6 @@ env:
         key: api-token
 
 extraArgs:
-  - --cloudflare-proxied
   - --txt-owner-id=${ENVIRONMENT}-external-dns
 
 domainFilters:
