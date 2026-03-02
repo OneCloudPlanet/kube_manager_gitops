@@ -41,8 +41,8 @@ loki:
         region: auto
         access_key_id: ${LOKI_ACCESS_KEY_ID}
         secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
+        bucket_lookup_type: path
         insecure: false
-        s3forcepathstyle: true
 
   ruler:
     enable_api: true
@@ -57,8 +57,8 @@ loki:
       region: auto
       access_key_id: ${LOKI_ACCESS_KEY_ID}
       secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
+      bucket_lookup_type: path
       insecure: false
-      s3forcepathstyle: true
 
   ingester:
     chunk_encoding: snappy
