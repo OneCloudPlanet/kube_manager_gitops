@@ -30,7 +30,15 @@ loki:
       chunks: ${LOKI_BUCKET}
       ruler: ${LOKI_BUCKET}
       admin: ${LOKI_BUCKET}
+    object_store:
+      type: s3
+      storage_prefix: loki-ruler
       s3:
+        endpoint: ${LOKI_ENDPOINT}
+        region: auto
+        access_key_id: ${LOKI_ACCESS_KEY_ID}
+        secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
+        insecure: false
         s3ForcePathStyle: true
 
   storage_config:
@@ -52,17 +60,6 @@ loki:
       type: s3
       s3:
         s3forcepathstyle: true
-
-  ruler_storage:
-    type: s3
-    storage_prefix: loki-ruler
-    s3:
-      bucket_name: ${LOKI_BUCKET}
-      endpoint: ${LOKI_ENDPOINT}
-      region: auto
-      access_key_id: ${LOKI_ACCESS_KEY_ID}
-      secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
-      insecure: false
 
   ingester:
     chunk_encoding: snappy
