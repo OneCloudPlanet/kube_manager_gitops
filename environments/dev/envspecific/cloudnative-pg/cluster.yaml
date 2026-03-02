@@ -17,8 +17,8 @@ spec:
     initdb:
       database: app
       owner: app
-      secret:
-        name: app-secret
+      # secret:
+      #   name: app-secret
 
   resources:
     requests:

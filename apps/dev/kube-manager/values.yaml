@@ -1,11 +1,9 @@
-image:
-  tag: "latest-dev"
-
 application:
   debug: "0"
   allowedHosts: "k8s-dev.ocplanet.cloud, *"
   allowedFrontends: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud" # was: allowedOrigins
   logLevel: "INFO"
+  region: "dev"
 
 database:
   host: "postgres-rw.cnpg.svc.cluster.local"
@@ -25,6 +23,6 @@ openstack:
   adminProject: "admin"
   outputIp: "91.211.91.220"
 
-# s3:
-#   domain: "s3.ua-central-1.ocplanet.cloud"
-#   bucketName: "k8s-dev-static"
+telegram:
+  enabled: "1"
+  groupId: "-5173881460"

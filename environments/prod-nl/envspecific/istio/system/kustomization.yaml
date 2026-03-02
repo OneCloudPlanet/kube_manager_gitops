@@ -4,9 +4,6 @@ kind: Kustomization
 generatorOptions:
  disableNameSuffixHash: true
 
-# configMapGenerator is disabled: istio-system-values-envspecific is not
-# referenced by the istiod HelmRelease (which uses istio-system-values from common).
-# Uncomment and wire via valuesFrom in the HelmRelease if env-specific overrides are needed.
 # configMapGenerator:
 #   - name: istio-system-values-envspecific
 #     namespace: istio-system
