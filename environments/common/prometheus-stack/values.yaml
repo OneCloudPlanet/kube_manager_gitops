@@ -1,15 +1,15 @@
 prometheus:
   enabled: true
   thanosService:
-    enabled: false
+    enabled: true
   thanosServiceMonitor:
-    enabled: false
+    enabled: true
   prometheusSpec:
     externalUrl: "https://prometheus.${HOST}"
     # Prometheus metrics retention time in PV
     retention: 15d
     # High availability
-    replicas: 2 
+    replicas: 2
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
@@ -20,15 +20,17 @@ prometheus:
 #    serviceMonitorNamespaceSelector:
 #      matchNames:
 #        - stage
-    # thanos:
-    #   objectStorageConfig:
-    #     secret:
-    #       type: "${THANOS_STORAGE_TYPE}"
-    #       config:
-    #         endpoint: "${THANOS_ENDPOINT}"
-    #         bucket: "${THANOS_BUCKET}"
-    #         access_key: "${THANOS_ACCESS_KEY_ID}"
-    #         secret_key: "${THANOS_ACCESS_SECRET_KEY}"
+    thanos:
+      objectStorageConfig:
+        secret:
+          type: s3
+          config:
+            endpoint: "${THANOS_ENDPOINT}"
+            bucket: "${THANOS_BUCKET}"
+            access_key: "${THANOS_ACCESS_KEY_ID}"
+            secret_key: "${THANOS_ACCESS_SECRET_KEY}"
+            prefix: "thanos"
+            s3forcepathstyle: true
     storageSpec:
       volumeClaimTemplate:
         spec:
@@ -184,31 +186,48 @@ alertmanager:
           parse_mode: ''
 
 grafana:
-  # sidecar:
-  #   datasources:
-  #     url: http://thanos-query-frontend.monitoring:9090
-  #     access: proxy
-  # additionalDataSources:
-  #   - name: Loki
-  #     type: loki
-  #     url: http://loki-gateway.loki
-  #     access: proxy
-  #     isDefault: false
-  #     uid: loki
-  #     jsonData:
-  #       timeout: 3600
-  #   - name: Tempo
-  #     type: tempo
-  #     uid: tempo
-  #     access: proxy
-  #     url: http://tempo-query-frontend.observability:3100
-  #     jsonData:
-  #       serviceMap:
-  #         datasourceUid: 'prometheus'
-  #       nodeGraph:
-  #         enabled: true
-  #       lokiSearch:
-  #         datasourceUid: 'loki'
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: false
+  additionalDataSources:
+    - name: Thanos
+      type: prometheus
+      url: http://thanos-query-frontend.monitoring:9090
+      access: proxy
+      isDefault: true
+      uid: thanos
+    - name: Loki
+      type: loki
+      url: http://loki-gateway.loki
+      access: proxy
+      isDefault: false
+      uid: loki
+      jsonData:
+        timeout: 3600
+        derivedFields:
+          - datasourceUid: tempo
+            matcherRegex: '"trace_id":"(\w+)"'
+            name: TraceID
+            url: "$${__value.raw}"
+    - name: Tempo
+      type: tempo
+      uid: tempo
+      access: proxy
+      url: http://tempo-query-frontend.observability:3100
+      jsonData:
+        serviceMap:
+          datasourceUid: thanos
+        nodeGraph:
+          enabled: true
+        lokiSearch:
+          datasourceUid: loki
+        tracesToLogsV2:
+          datasourceUid: loki
+          spanStartTimeShift: "-1m"
+          spanEndTimeShift: "1m"
+          tags:
+            - key: namespace
+            - key: pod
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -401,26 +420,6 @@ additionalPrometheusRulesMap:
             annotations:
               summary: Istio Pilot Duplicate Entry (instance {{ $labels.instance }})
               description: "Istio pilot duplicate entry error.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-      # Velero alert rules:
-      # - name: custom.velero.rules
-      #   rules:
-      #     - alert: VeleroBackupPartialFailures
-      #       annotations:
-      #         message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
-      #       expr: |-
-      #         velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-      #       for: 15m
-      #       labels:
-      #         severity: warning
-      #     - alert: VeleroBackupFailures
-      #       annotations:
-      #         message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
-      #       expr: |-
-      #         velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-      #       for: 15m
-      #       labels:
-      #         severity: warning
 
       # Fluxcd alert rules:
       - name: custom.flux.rules

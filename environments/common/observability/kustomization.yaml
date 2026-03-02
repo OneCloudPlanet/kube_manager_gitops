@@ -6,8 +6,8 @@ resources:
   - istio-monitors.yaml
   - jaeger
   - kiali
-  # - opentelemetry-operator
-  # - loki
-  # - alloy
-  # - thanos
-  # - tempo
+  - opentelemetry-operator
+  - loki
+  - alloy
+  - thanos
+  - tempo

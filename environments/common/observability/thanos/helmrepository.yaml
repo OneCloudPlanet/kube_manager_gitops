@@ -1,8 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: thanos
+  name: bitnami
 spec:
   interval: 1h
-  type: oci
-  url:  oci://registry-1.docker.io/bitnamicharts/thanos
+  url: https://charts.bitnami.com/bitnami

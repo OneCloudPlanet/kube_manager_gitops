@@ -4,4 +4,4 @@ resources:
   - istio
   - cert-manager
   - cloudnative-pg
-  # - opentelemetry
+  - opentelemetry

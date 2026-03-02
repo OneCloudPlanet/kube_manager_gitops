@@ -4,10 +4,14 @@ metadata:
   name: thanos
 spec:
   releaseName: thanos
-  chartRef:
-    kind: OCIRepository
-    name: thanos
-    namespace: monitoring
+  chart:
+    spec:
+      chart: thanos
+      version: 17.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: monitoring
   interval: 1h0m0s
   install:
     remediation:

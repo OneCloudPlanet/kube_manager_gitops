@@ -2,7 +2,7 @@ application:
   debug: "0"
   allowedHosts: "k8s-dev.ocplanet.cloud, *"
   allowedFrontends: "https://kube-manager.ocplanet.cloud, https://k8s-dev.ocplanet.cloud" # was: allowedOrigins
-  logLevel: "INFO"
+  logLevel: "DEBUG"
   region: "dev"
 
 database:

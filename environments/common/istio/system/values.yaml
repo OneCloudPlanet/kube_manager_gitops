@@ -14,7 +14,7 @@ pilot:
       cpu: 100m
       memory: 128Mi
 meshConfig:
-  # accessLogFile: /dev/stdout
+  accessLogFile: /dev/stdout
   defaultConfig:
     proxyMetadata: {}
     tracing:
