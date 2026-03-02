@@ -21,7 +21,7 @@ data:
   LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
   # ── Tempo
   TEMPO_S3_BUCKET: "k8s-dev-metrics"
-  TEMPO_S3_ENDPOINT: "https://k8s-dev-metrics.s3.ua-central-1.ocplanet.cloud"
+  TEMPO_S3_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
   # ── Thanos
   THANOS_BUCKET: "k8s-dev-metrics"
-  THANOS_ENDPOINT: "https://k8s-dev-metrics.s3.ua-central-1.ocplanet.cloud"
+  THANOS_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
