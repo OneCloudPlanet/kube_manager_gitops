@@ -22,3 +22,7 @@ openstack:
   externalSubnet: "f0467537-9538-4155-a35f-12cdf79a9566"
   adminProject: "admin"
   outputIp: "91.211.91.220"
+
+telegram:
+  enabled: "1"
+  groupId: "-5173881460"
