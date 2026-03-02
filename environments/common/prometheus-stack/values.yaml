@@ -30,7 +30,6 @@ prometheus:
             access_key: "${THANOS_ACCESS_KEY_ID}"
             secret_key: "${THANOS_ACCESS_SECRET_KEY}"
             prefix: "thanos"
-            s3forcepathstyle: true
     storageSpec:
       volumeClaimTemplate:
         spec:

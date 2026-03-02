@@ -55,10 +55,6 @@ loki:
   ruler:
     enable_api: true
     alertmanager_url: http://alertmanager-operated.monitoring:9093
-    storage:
-      type: s3
-      s3:
-        s3forcepathstyle: true
 
   ingester:
     chunk_encoding: snappy
