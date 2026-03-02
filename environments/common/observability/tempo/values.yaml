@@ -16,7 +16,6 @@ storage:
       access_key: ${TEMPO_S3_ACCESS_KEY}
       secret_key: ${TEMPO_S3_SECRET_KEY}
       prefix: tempo
-      forcepathstyle: true
       insecure: false
 
 traces:
