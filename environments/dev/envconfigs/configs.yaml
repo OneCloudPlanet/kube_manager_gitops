@@ -18,7 +18,7 @@ data:
   CNPG_ENDPOINTURL: "https://k8s-dev-backup.s3.ua-central-1.ocplanet.cloud"
   # ── Loki
   LOKI_BUCKET: "k8s-dev-metrics"
-  LOKI_ENDPOINT: "https://k8s-dev-metrics.s3.ua-central-1.ocplanet.cloud"
+  LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
   # ── Tempo
   TEMPO_S3_BUCKET: "k8s-dev-metrics"
   TEMPO_S3_ENDPOINT: "https://k8s-dev-metrics.s3.ua-central-1.ocplanet.cloud"

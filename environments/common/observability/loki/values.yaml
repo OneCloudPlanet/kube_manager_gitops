@@ -30,6 +30,8 @@ loki:
       chunks: ${LOKI_BUCKET}
       ruler: ${LOKI_BUCKET}
       admin: ${LOKI_BUCKET}
+      s3:
+        s3ForcePathStyle: true
 
   storage_config:
     use_thanos_objstore: true
@@ -41,12 +43,15 @@ loki:
         region: auto
         access_key_id: ${LOKI_ACCESS_KEY_ID}
         secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
-        bucket_lookup_type: path
         insecure: false
 
   ruler:
     enable_api: true
     alertmanager_url: http://alertmanager-operated.monitoring:9093
+    storage:
+      type: s3
+      s3:
+        s3forcepathstyle: true
 
   ruler_storage:
     type: s3
@@ -57,7 +62,6 @@ loki:
       region: auto
       access_key_id: ${LOKI_ACCESS_KEY_ID}
       secret_access_key: ${LOKI_ACCESS_SECRET_KEY}
-      bucket_lookup_type: path
       insecure: false
 
   ingester:
