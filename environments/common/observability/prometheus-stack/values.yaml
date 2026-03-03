@@ -6,6 +6,8 @@ prometheus:
     enabled: true
   prometheusSpec:
     externalUrl: "https://prometheus.${HOST}"
+    externalLabels:
+      cluster: "${ENVIRONMENT}"
     # Prometheus metrics retention time in PV
     retention: 15d
     # High availability
