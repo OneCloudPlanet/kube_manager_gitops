@@ -10,7 +10,8 @@ resources:
 configMapGenerator:
   - name: flux-grafana-dashboards
     files:
-      - dashboards/kube-manager.json
+      - dashboards/fast-api.json
+      - dashboards/celery.json
       - dashboards/cluster.json
       - dashboards/control-plane.json
       - dashboards/logs.json

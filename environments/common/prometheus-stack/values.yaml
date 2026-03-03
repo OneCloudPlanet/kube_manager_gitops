@@ -225,18 +225,6 @@ grafana:
       #     value: Prometheus
       #   - name: DS_LOKI
       #     value: Loki
-      fastapi-observability:
-        gnetId: 17175
-        revision: 3
-        datasource:
-          - name: DS_PROMETHEUS
-            value: Thanos
-      celery-exporter:
-        gnetId: 14440
-        revision: 1
-        datasource:
-          - name: DS_PROMETHEUS
-            value: Thanos
     istio:
       istio-control-plane:
         gnetId: 7645
