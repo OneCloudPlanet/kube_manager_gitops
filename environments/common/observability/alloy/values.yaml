@@ -45,23 +45,6 @@ alloy:
           regex = "(.+)"
         }
 
-        # Fallback for charts that use legacy labels app/component.
-        rule {
-          source_labels = ["app", "__meta_kubernetes_pod_label_app"]
-          action = "replace"
-          target_label = "app"
-          regex = "^;(.+)$"
-          replacement = "$1"
-        }
-
-        rule {
-          source_labels = ["component", "__meta_kubernetes_pod_label_component"]
-          action = "replace"
-          target_label = "component"
-          regex = "^;(.+)$"
-          replacement = "$1"
-        }
-
         rule {
           source_labels = ["namespace", "app"]
           action = "replace"

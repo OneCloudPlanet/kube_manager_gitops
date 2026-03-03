@@ -4,13 +4,13 @@ metadata:
   name: kube-manager-app
   namespace: ${ENVIRONMENT}
   labels:
-    app: kube-manager
-    component: app
+    app.kubernetes.io/name: kube-manager
+    app.kubernetes.io/component: app
 spec:
   selector:
     matchLabels:
-      app: kube-manager
-      component: app
+      app.kubernetes.io/name: kube-manager
+      app.kubernetes.io/component: app
   namespaceSelector:
     matchNames:
       - ${ENVIRONMENT}
@@ -26,13 +26,13 @@ metadata:
   name: kube-manager-celery-exporter
   namespace: ${ENVIRONMENT}
   labels:
-    app: kube-manager
-    component: celery-exporter
+    app.kubernetes.io/name: kube-manager
+    app.kubernetes.io/component: celery-exporter
 spec:
   selector:
     matchLabels:
-      app: kube-manager
-      component: celery-exporter
+      app.kubernetes.io/name: kube-manager
+      app.kubernetes.io/component: celery-exporter
   namespaceSelector:
     matchNames:
       - ${ENVIRONMENT}

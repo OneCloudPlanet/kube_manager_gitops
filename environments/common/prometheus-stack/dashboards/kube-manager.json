@@ -449,7 +449,7 @@
       "targets": [
         {
           "datasource": {"type": "loki", "uid": "$loki_datasource"},
-          "expr": "{namespace=\"$namespace\", app=~\"kube-manager.*\"} |= `$filter`",
+          "expr": "{namespace=\"$namespace\", app=\"kube-manager\", container!=\"istio-proxy\"} |= `$filter`",
           "refId": "A"
         }
       ],
