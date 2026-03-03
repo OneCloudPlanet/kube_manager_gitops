@@ -1090,7 +1090,7 @@
               "targetBlank": true,
               "title": "Go To Task",
               "type": "dashboard",
-              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=${namespace}&var-job=${job}&var-task=${__data.fields.Task}"
+              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=$${namespace}&var-job=$${job}&var-task=$${__data.fields.Task}"
             }
           ],
           "thresholds": {
@@ -1231,7 +1231,7 @@
               "targetBlank": true,
               "title": "Go To Task",
               "type": "dashboard",
-              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=${namespace}&var-job=${job}&var-task=${__data.fields.Task}"
+              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=$${namespace}&var-job=$${job}&var-task=$${__data.fields.Task}"
             }
           ],
           "thresholds": {
@@ -1315,7 +1315,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$${datasource}"
         },
         "hide": 2,
         "label": "Cluster",
@@ -1328,7 +1328,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$${datasource}"
         },
         "includeAll": false,
         "label": "Namespace",
@@ -1342,7 +1342,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$${datasource}"
         },
         "includeAll": false,
         "label": "Job",
@@ -1356,7 +1356,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$${datasource}"
         },
         "includeAll": true,
         "label": "Queue Name",
