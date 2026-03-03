@@ -9,52 +9,21 @@ existingObjstoreSecretItems:
       path: objstore.yml
 storegateway:
   enabled: true
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
 queryFrontend:
   replicaCount: 2
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
 query:
   replicaCount: 2
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
   dnsDiscovery:
     enabled: true
     sidecarsService: "prometheus-stack-kube-prom-thanos-discovery"
     sidecarsNamespace: "monitoring"
 compactor:
   enabled: true
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
   retentionResolutionRaw: 10d
   retentionResolution5m: 10d
   retentionResolution1h: 10y
   persistence:
     size: 30Gi
-bucketweb:
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
-ruler:
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
-receive:
-  image:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.35.1
 metrics:
   enabled: true
   serviceMonitor:
