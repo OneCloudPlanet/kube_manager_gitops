@@ -26,3 +26,8 @@ openstack:
 telegram:
   enabled: "1"
   groupId: "-5173881460"
+
+openTelemetry:
+  enabled: "1"
+  endpoint: "http://otel-collector-collector.observability:4317"
+  serviceName: "kube-manager"

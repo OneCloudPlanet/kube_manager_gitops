@@ -29,3 +29,6 @@ telegram:
 
 celeryExporter:
   enabled: false
+
+openTelemetry:
+  enabled: "0"
