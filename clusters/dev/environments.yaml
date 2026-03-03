@@ -70,38 +70,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: prometheus-stack
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: istio-ingress
-  interval: 10m0s
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./environments/common/prometheus-stack
-  prune: false
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-gpg
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: environment-configs
-      - kind: ConfigMap
-        name: environment-secrets
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: observability
   namespace: flux-system
 spec:
   dependsOn:
     - name: istio-ingress
-    - name: prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -123,16 +96,42 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: others
+  name: infra
   namespace: flux-system
 spec:
   dependsOn:
-    - name: prometheus-stack
+    - name: istio-ingress
   interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./environments/common/others
+  path: ./environments/common/infra
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-ingress
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/data
   prune: false
   decryption:
     provider: sops
@@ -154,7 +153,8 @@ metadata:
 spec:
   dependsOn:
     - name: envconfigs
-    - name: others
+    - name: infra
+    - name: data
     - name: istio-ingress
     - name: observability
   interval: 10m0s

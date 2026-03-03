@@ -5,7 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: others
+    - name: infra
+    - name: data
     - name: istio-ingress
     - name: envspecific
   interval: 5m
