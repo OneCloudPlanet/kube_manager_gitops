@@ -55,6 +55,7 @@ spec:
           cpu: 100m
           memory: 128Mi
     celeryExporter:
+      tag: "0.10.0"
       enabled: true
     nodeSelector: {}
     tolerations: []
