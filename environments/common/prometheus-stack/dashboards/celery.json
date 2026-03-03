@@ -73,7 +73,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "count(\n  celery_worker_up{\n    cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n  } == 1\n)\n",
+          "expr": "count(\n  celery_worker_up{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"} == 1\n)\n",
           "instant": false
         }
       ],
@@ -120,7 +120,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  celery_worker_tasks_active{\n    cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n  }\n)\n",
+          "expr": "sum(\n  celery_worker_tasks_active{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}\n)\n",
           "instant": false
         }
       ],
@@ -167,7 +167,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "count(\n  group by (queue_name) (\n    celery_queue_length{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }\n  )\n)\n",
+          "expr": "count(\n  group by (queue_name) (\n    celery_queue_length{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}\n  )\n)\n",
           "instant": false
         }
       ],
@@ -214,7 +214,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n    )\n  )\n)\n",
           "instant": false
         }
       ],
@@ -269,7 +269,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  )\n)\n/(sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  )\n)\n+sum(\n  round(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  )\n)\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n    )\n  )\n)\n/(sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n    )\n  )\n)\n+sum(\n  round(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n    )\n  )\n)\n)\n",
           "instant": false
         }
       ],
@@ -316,7 +316,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  rate(\n    celery_task_runtime_sum{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[1w]\n  )\n)\n/\nsum(\n  rate(\n    celery_task_runtime_count{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[1w]\n  )\n) > 0\n",
+          "expr": "sum(\n  rate(\n    celery_task_runtime_sum{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n  )\n)\n/\nsum(\n  rate(\n    celery_task_runtime_count{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[1w]\n  )\n) > 0\n",
           "instant": false
         }
       ],
@@ -366,7 +366,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "topk(10,\n  sum(\n    celery_queue_length{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }\n  ) by (queue_name)\n)\n",
+          "expr": "topk(10, sum(\n    celery_queue_length{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}\n  ) by (queue_name)\n)\n",
           "instant": true,
           "legendFormat": "{{ queue_name }}"
         }
@@ -417,7 +417,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "topk(10,\n  sum(\n    rate(\n      celery_task_received_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n      }[6h]\n    )\n  ) by (name)\n)\n",
+          "expr": "topk(10, sum(\n    rate(\n      celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n    )\n  ) by (name)\n)\n",
           "instant": true,
           "legendFormat": "{{ name }}"
         }
@@ -468,7 +468,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_succeeded_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Succeeded"
         },
@@ -477,7 +477,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_failed_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Failed"
         }
@@ -528,7 +528,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_sent_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_sent_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Sent"
         },
@@ -537,7 +537,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_received_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Received"
         },
@@ -546,7 +546,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_succeeded_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Succeeded"
         },
@@ -555,7 +555,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_failed_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Failed"
         },
@@ -564,7 +564,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_retried_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_retried_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Retried"
         },
@@ -573,7 +573,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_revoked_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_revoked_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Revoked"
         },
@@ -582,7 +582,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  increase(\n    celery_task_rejected_total{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name!~\"None\"\n\n    }[6h]\n  )\n)\n",
+          "expr": "sum(\n  increase(\n    celery_task_rejected_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}[6h]\n  )\n)\n",
           "instant": true,
           "legendFormat": "Rejected"
         }
@@ -654,7 +654,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum (\n  celery_queue_length{\n    cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n  }\n) by (job, queue_name)\n",
+          "expr": "sum (\n  celery_queue_length{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}\n) by (job, queue_name)\n",
           "legendFormat": "{{ job }}/{{ queue_name }}"
         }
       ],
@@ -728,7 +728,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n/(sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n+sum(\n  round(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n) > -1\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n/(sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n+sum(\n  round(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n) > -1\n",
           "format": "table",
           "instant": true
         },
@@ -737,7 +737,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -746,7 +746,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -755,7 +755,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_sent_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_sent_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -764,7 +764,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -773,7 +773,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_rejected_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_rejected_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -782,7 +782,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_retried_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_retried_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         },
@@ -791,7 +791,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_revoked_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__range]\n    )\n  )\n) by (job)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_revoked_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__range]\n    )\n  )\n) by (job)\n",
           "format": "table",
           "instant": true
         }
@@ -886,7 +886,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_succeeded_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Succeeded"
         },
         {
@@ -895,7 +895,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Failed"
         },
         {
@@ -904,7 +904,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_sent_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_sent_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Sent"
         },
         {
@@ -913,7 +913,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Received"
         },
         {
@@ -922,7 +922,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_retried_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_retried_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Retried"
         },
         {
@@ -931,7 +931,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_revoked_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_revoked_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Revoked"
         },
         {
@@ -940,7 +940,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "sum(\n  round(\n    increase(\n      celery_task_rejected_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  )\n)\n",
+          "expr": "sum(\n  round(\n    increase(\n      celery_task_rejected_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  )\n)\n",
           "legendFormat": "Rejected"
         }
       ],
@@ -1040,7 +1040,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "histogram_quantile(0.50,\n  sum(\n    irate(\n      celery_task_runtime_bucket{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
+          "expr": "histogram_quantile(0.50, sum(\n    irate(\n      celery_task_runtime_bucket{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
           "legendFormat": "P50"
         },
         {
@@ -1049,7 +1049,7 @@
             "uid": "$datasource"
           },
           "exemplar": false,
-          "expr": "histogram_quantile(0.95,\n  sum(\n    irate(\n      celery_task_runtime_bucket{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
+          "expr": "histogram_quantile(0.95, sum(\n    irate(\n      celery_task_runtime_bucket{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
           "legendFormat": "P95"
         },
         {
@@ -1058,7 +1058,7 @@
             "uid": "$datasource"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99,\n  sum(\n    irate(\n      celery_task_runtime_bucket{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
+          "expr": "histogram_quantile(0.99, sum(\n    irate(\n      celery_task_runtime_bucket{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[$__rate_interval]\n    )\n  ) by (job, le)\n)\n",
           "legendFormat": "P99"
         }
       ],
@@ -1090,7 +1090,7 @@
               "targetBlank": true,
               "title": "Go To Task",
               "type": "dashboard",
-              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=${namespace}&var-job=${job}&var-task=${__data.fields.Task}"
+              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=$$${namespace}&var-job=$$${job}&var-task=$$${__data.fields.Task}"
             }
           ],
           "thresholds": {
@@ -1125,7 +1125,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "round(\n  sum(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  ) by (job, name)\n)\n",
+          "expr": "round(\n  sum(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[1w]\n    )\n  ) by (job, name)\n)\n",
           "format": "table",
           "instant": true
         }
@@ -1192,7 +1192,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "round(\n  sum(\n    increase(\n      celery_task_failed_total{\n        cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n      }[1w]\n    )\n  ) by (job, exception)\n)\n",
+          "expr": "round(\n  sum(\n    increase(\n      celery_task_failed_total{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[1w]\n    )\n  ) by (job, exception)\n)\n",
           "format": "table",
           "instant": true
         }
@@ -1231,7 +1231,7 @@
               "targetBlank": true,
               "title": "Go To Task",
               "type": "dashboard",
-              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=${namespace}&var-job=${job}&var-task=${__data.fields.Task}"
+              "url": "/d/celery-tasks-by-task-32s3/celery-tasks-by-task?var-namespace=$$${namespace}&var-job=$$${job}&var-task=$$${__data.fields.Task}"
             }
           ],
           "thresholds": {
@@ -1266,7 +1266,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "sum (\n  rate(\n    celery_task_runtime_sum{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n    }[1w]\n  )\n) by(name)\n/\nsum (\n  rate(\n    celery_task_runtime_count{\n      cluster=\"$cluster\",\nnamespace=\"$namespace\",\njob=~\"$job\"\n,\nqueue_name=~\"$queue_name\",\nqueue_name!~\"None\"\n\n    }[1w]\n  )\n) by (name) > 0\n",
+          "expr": "sum (\n  rate(\n    celery_task_runtime_sum{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[1w]\n  )\n) by(name)\n/\nsum (\n  rate(\n    celery_task_runtime_count{namespace=\"$namespace\", job=~\"$job\", queue_name=~\"$queue_name\", queue_name!~\"None\"}[1w]\n  )\n) by (name) > 0\n",
           "format": "table",
           "instant": true
         }
@@ -1303,18 +1303,19 @@
       {
         "current": {
           "selected": true,
-          "text": "default",
-          "value": "default"
+          "text": "Thanos",
+          "value": "thanos"
         },
         "label": "Data source",
         "name": "datasource",
         "query": "prometheus",
-        "type": "datasource"
+        "type": "datasource",
+        "regex": "Thanos"
       },
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$$${datasource}"
         },
         "hide": 2,
         "label": "Cluster",
@@ -1327,13 +1328,13 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$$${datasource}"
         },
         "includeAll": false,
         "label": "Namespace",
         "multi": false,
         "name": "namespace",
-        "query": "label_values(celery_worker_up{cluster=\"$cluster\"}, namespace)",
+        "query": "label_values(celery_worker_up{}, namespace)",
         "refresh": 2,
         "sort": 1,
         "type": "query"
@@ -1341,13 +1342,13 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$$${datasource}"
         },
         "includeAll": false,
         "label": "Job",
         "multi": false,
         "name": "job",
-        "query": "label_values(celery_worker_up{cluster=\"$cluster\", namespace=\"$namespace\"}, job)",
+        "query": "label_values(celery_worker_up{namespace=\"$namespace\"}, job)",
         "refresh": 2,
         "sort": 1,
         "type": "query"
@@ -1355,13 +1356,13 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "$$${datasource}"
         },
         "includeAll": true,
         "label": "Queue Name",
         "multi": true,
         "name": "queue_name",
-        "query": "label_values(celery_task_received_total{cluster=\"$cluster\", namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}, queue_name)",
+        "query": "label_values(celery_task_received_total{namespace=\"$namespace\", job=~\"$job\", queue_name!~\"None\"}, queue_name)",
         "refresh": 2,
         "sort": 1,
         "type": "query"
