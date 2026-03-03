@@ -4,4 +4,4 @@ metadata:
   name: bitnami
 spec:
   interval: 1h
-  url: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  url: https://charts.bitnami.com/bitnami
