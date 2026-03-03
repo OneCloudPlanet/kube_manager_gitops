@@ -10,8 +10,14 @@ prometheus:
     retention: 15d
     # High availability
     replicas: 2
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
     serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
     podMonitorSelectorNilUsesHelmValues: false
+    ruleSelector: {}
+    ruleNamespaceSelector: {}
     ruleSelectorNilUsesHelmValues: false
     enableRemoteWriteReceiver: true
 #    serviceMonitorSelector:
@@ -38,44 +44,6 @@ prometheus:
           resources:
             requests:
               storage: 30Gi
-
-  # additionalServiceMonitors:
-  #   - name: "billing-admin"
-  #     selector:
-  #       matchLabels:
-  #         release: billing-admin
-  #     namespaceSelector:
-  #       matchNames:
-  #         - stage
-  #     endpoints:
-  #      - port: http
-  #        path: /metrics
-  #        interval: 30s
-  #   - name: "billing-backend"
-  #     selector:
-  #       matchLabels:
-  #         release: billing-backend
-  #     namespaceSelector:
-  #       matchNames:
-  #         - stage
-  #     endpoints:
-  #       - port: http
-  #         path: /metrics
-  #         interval: 30s
-#    - name: billing-admin-metrics
-#      additionalLabels:
-#        release: prometheus-stack
-#      namespaceSelector:
-#        matchNames:
-#          - stage
-#      selector:
-#        matchLabels:
-#          release: billing-admin
-#      endpoints:
-#        - port: 80
-#          path: /metrics
-#          interval: 30s
-#          scrapeTimeout: 10s
 
 prometheusOperator:
   enabled: "True"
@@ -257,6 +225,18 @@ grafana:
       #     value: Prometheus
       #   - name: DS_LOKI
       #     value: Loki
+      fastapi-observability:
+        gnetId: 17175
+        revision: 3
+        datasource:
+          - name: DS_PROMETHEUS
+            value: Thanos
+      celery-exporter:
+        gnetId: 14440
+        revision: 1
+        datasource:
+          - name: DS_PROMETHEUS
+            value: Thanos
     istio:
       istio-control-plane:
         gnetId: 7645

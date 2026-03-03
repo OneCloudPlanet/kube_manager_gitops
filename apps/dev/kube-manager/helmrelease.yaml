@@ -54,6 +54,8 @@ spec:
         requests:
           cpu: 100m
           memory: 128Mi
+    celeryExporter:
+      enabled: true
     nodeSelector: {}
     tolerations: []
     affinity: {}

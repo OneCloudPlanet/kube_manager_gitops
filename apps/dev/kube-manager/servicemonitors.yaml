@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kube-manager-app
+  namespace: ${ENVIRONMENT}
+  labels:
+    app: kube-manager
+    component: app
+spec:
+  selector:
+    matchLabels:
+      app: kube-manager
+      component: app
+  namespaceSelector:
+    matchNames:
+      - ${ENVIRONMENT}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kube-manager-celery-exporter
+  namespace: ${ENVIRONMENT}
+  labels:
+    app: kube-manager
+    component: celery-exporter
+spec:
+  selector:
+    matchLabels:
+      app: kube-manager
+      component: celery-exporter
+  namespaceSelector:
+    matchNames:
+      - ${ENVIRONMENT}
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s

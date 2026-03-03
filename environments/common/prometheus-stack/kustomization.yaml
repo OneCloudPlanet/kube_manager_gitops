@@ -10,9 +10,9 @@ resources:
 configMapGenerator:
   - name: flux-grafana-dashboards
     files:
-      - dashboards/control-plane.json
-      - dashboards/billing_backend.json
+      - dashboards/kube-manager.json
       - dashboards/cluster.json
+      - dashboards/control-plane.json
       - dashboards/logs.json
     options:
       labels:

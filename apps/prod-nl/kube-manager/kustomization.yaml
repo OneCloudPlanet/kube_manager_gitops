@@ -5,6 +5,7 @@ resources:
   - ocirepository.yaml
   - helmrelease.yaml
   - secrets.yaml
+  # - servicemonitors.yaml
   - virtualservice.yaml
 configMapGenerator:
   - name: kube-manager-values

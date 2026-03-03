@@ -26,3 +26,6 @@ openstack:
 telegram:
   enabled: "1"
   groupId: "-5173881460"
+
+celeryExporter:
+  enabled: false
