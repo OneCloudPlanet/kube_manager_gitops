@@ -4,7 +4,6 @@ resources:
   - namespace.yaml
   - podmonitors.yaml
   - istio-monitors.yaml
-  - prometheus-stack
   - jaeger
   - kiali
   - opentelemetry-operator

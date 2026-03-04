@@ -70,11 +70,39 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: prometheus-stack
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-ingress
+  interval: 10m0s
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/prometheus-stack
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: observability
   namespace: flux-system
 spec:
   dependsOn:
     - name: istio-ingress
+    - name: prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -127,7 +155,7 @@ metadata:
 spec:
   dependsOn:
     - name: istio-ingress
-    - name: observability
+    - name: prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
