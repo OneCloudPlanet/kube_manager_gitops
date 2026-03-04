@@ -6,12 +6,22 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/ssa: merge
 data:
+  DOMAIN: "ocplanet.cloud"
   PROJECT: "kube-manager"
   ENVIRONMENT: "kube-nl"
   HOST: "k8s-nl.ocplanet.cloud"
   EMAIL_DOMAIN: "info@onecloudplanet.com"
+  CLOUDFLARE_EMAIL: "info@onecloudplanet.com"
   ISTIO_VERSION: "1.24.2"
+  # ── DB backups
   CNPG_BUCKET: "k8s-nl-backup"
   CNPG_ENDPOINTURL: "https://k8s-nl-backup.s3.ua-central-1.ocplanet.cloud"
-  CLOUDFLARE_EMAIL: "info@onecloudplanet.com"
-  DOMAIN: "ocplanet.cloud"
+  # ── Loki
+  LOKI_BUCKET: "k8s-nl-metrics"
+  LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
+  # ── Tempo
+  TEMPO_S3_BUCKET: "k8s-nl-metrics"
+  TEMPO_S3_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
+  # ── Thanos
+  THANOS_BUCKET: "k8s-nl-metrics"
+  THANOS_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"

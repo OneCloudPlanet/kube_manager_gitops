@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: kube-manager
+  namespace: cnpg
+spec:
+  name: kube-manager
+  owner: onecloud
+  encoding: UTF8
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres

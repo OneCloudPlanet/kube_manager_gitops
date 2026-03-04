@@ -1,0 +1,33 @@
+application:
+  debug: "0"
+  allowedHosts: "k8s-pl.ocplanet.cloud, *"
+  allowedFrontends: "https://k8s-pl.ocplanet.cloud" # was: allowedOrigins
+  logLevel: "DEBUG"
+  region: "pl"
+
+database:
+  host: "postgres-rw.cnpg.svc.cluster.local"
+  port: "5432"
+  name: "kube-manager"
+
+redis:
+  host: "valkey-primary.valkey.svc.cluster.local"
+  port: "6379"
+
+openstack:
+  authUrl: "https://pub.eu-east-1.ocplanet.cloud:5000/v3"
+  domain: "default"
+  region: "eu-east-1"
+  externalNetwork: "28d4587f-466f-4ba0-abcc-930fef48cbdc"
+  externalSubnet: "cfadb8db-6056-4114-baa1-c2b5d8245493"
+  adminProject: "admin"
+  outputIp: "91.211.91.220"
+
+telegram:
+  enabled: "1"
+  groupId: "-5173881460"
+
+openTelemetry:
+  enabled: "1"
+  endpoint: "http://otel-collector-collector.observability:4317"
+  serviceName: "kube-manager"

@@ -1,0 +1,176 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: envconfigs
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/prod-ua/envconfigs
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: istio-system
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: envconfigs
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/istio/system
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: istio-ingress
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-system
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/istio/ingress
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: observability
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-ingress
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/observability
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-ingress
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/infra
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-ingress
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/common/data
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: envspecific
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: envconfigs
+    - name: infra
+    - name: data
+    - name: istio-ingress
+    - name: observability
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./environments/prod-ua/envspecific
+  prune: false
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: environment-configs
+      - kind: ConfigMap
+        name: environment-secrets

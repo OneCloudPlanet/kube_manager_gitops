@@ -1,8 +1,8 @@
 application:
   debug: "0"
-  allowedHosts: "k8s-nl.ocplanet.cloud, *"
+  allowedHosts: "k8s-nl.ocplanet.cloud"
   allowedFrontends: "https://k8s-nl.ocplanet.cloud" # was: allowedOrigins
-  logLevel: "INFO"
+  logLevel: "DEBUG"
   region: "nl"
 
 database:
@@ -21,14 +21,13 @@ openstack:
   externalNetwork: "76d208ac-ba1f-44df-a4a4-2789be70e139"
   externalSubnet: "f0467537-9538-4155-a35f-12cdf79a9566"
   adminProject: "admin"
-  outputIp: "91.211.89.211"
+  outputIp: "91.211.91.220"
 
 telegram:
   enabled: "1"
   groupId: "-5173881460"
 
-celeryExporter:
-  enabled: false
-
 openTelemetry:
-  enabled: "0"
+  enabled: "1"
+  endpoint: "http://otel-collector-collector.observability:4317"
+  serviceName: "kube-manager"

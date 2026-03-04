@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-configs
+  namespace: flux-system
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
+data:
+  DOMAIN: "ocplanet.cloud"
+  PROJECT: "kube-manager"
+  ENVIRONMENT: "kube-ua"
+  HOST: "k8s-ua.ocplanet.cloud"
+  EMAIL_DOMAIN: "info@onecloudplanet.com"
+  CLOUDFLARE_EMAIL: "info@onecloudplanet.com"
+  ISTIO_VERSION: "1.24.2"
+  # ── DB backups
+  CNPG_BUCKET: "k8s-ua-backup"
+  CNPG_ENDPOINTURL: "https://k8s-ua-backup.s3.ua-central-1.ocplanet.cloud"
+  # ── Loki
+  LOKI_BUCKET: "k8s-ua-metrics"
+  LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
+  # ── Tempo
+  TEMPO_S3_BUCKET: "k8s-ua-metrics"
+  TEMPO_S3_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
+  # ── Thanos
+  THANOS_BUCKET: "k8s-ua-metrics"
+  THANOS_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
