@@ -104,6 +104,7 @@ spec:
     - name: istio-ingress
     - name: prometheus-stack
   interval: 10m0s
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
