@@ -13,33 +13,33 @@ spec:
   #               the switchover of the primary
   primaryUpdateStrategy: unsupervised
 
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
+# ── INIT NEW MODE
+#  bootstrap:
+#    initdb:
+#      database: app
+#      owner: app
 
-  # ── RECOVERY MODE
-  # bootstrap:
-  #   recovery:
-  #     source: postgres-backup
-  #     # Опционально — восстановить до конкретного момента (PITR):
-  #     # recoveryTarget:
-  #     #   targetTime: "2026-01-01 03:00:00"
-  #
-  # externalClusters:
-  #   - name: postgres-backup
-  #     barmanObjectStore:
-  #       destinationPath: "s3://${CNPG_BUCKET}"
-  #       endpointURL: "${CNPG_ENDPOINTURL}"
-  #       s3Credentials:
-  #         accessKeyId:
-  #           name: s3
-  #           key: ACCESS_KEY_ID
-  #         secretAccessKey:
-  #           name: s3
-  #           key: ACCESS_SECRET_KEY
-  #       wal:
-  #         maxParallel: 8
+# ── RECOVERY MODE
+  bootstrap:
+    recovery:
+      source: postgres-backup
+#      recoveryTarget:
+#        targetTime: "2026-01-01 03:00:00"
+
+  externalClusters:
+    - name: postgres-backup
+      barmanObjectStore:
+        destinationPath: "s3://${CNPG_BUCKET}"
+        endpointURL: "${CNPG_ENDPOINTURL}"
+        s3Credentials:
+          accessKeyId:
+            name: s3
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: s3
+            key: ACCESS_SECRET_KEY
+        wal:
+          maxParallel: 8
 
   resources:
     requests:
