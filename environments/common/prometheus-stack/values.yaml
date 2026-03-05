@@ -138,6 +138,12 @@ alertmanager:
         - matchers:
             - "severity = none"
           receiver: 'null'
+        - matchers:
+            - "alertname = KubeDeploymentRolloutStuck"
+          receiver: 'null'
+        - matchers:
+            - "alertname = KubeDeploymentReplicasMismatch"
+          receiver: 'null'
     inhibit_rules:
       - source_matchers:
           - "severity = critical"
