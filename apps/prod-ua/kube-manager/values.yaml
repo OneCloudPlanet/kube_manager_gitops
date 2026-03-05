@@ -21,7 +21,7 @@ openstack:
   externalNetwork: "5cf72c55-b9cd-4706-862a-6bc4c3e41bfc"
   externalSubnet: "7e21d26b-f92a-4265-a073-c4abef1fbd9b"
   adminProject: "admin"
-  outputIp: "91.211.91.220"
+  outputIp: "2.59.221.243"
 
 telegram:
   enabled: "1"
