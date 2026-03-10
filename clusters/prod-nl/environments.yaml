@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envconfigs
+    - name: 0-envconfigs
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -48,7 +48,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-system
+    - name: 1-istio-system
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -74,7 +74,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress
+    - name: 2-istio-ingress
   interval: 10m0s
   wait: true
   sourceRef:
@@ -101,8 +101,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress
-    - name: prometheus-stack
+    - name: 2-istio-ingress
+    - name: 3-prometheus-stack
   interval: 10m0s
   wait: true
   sourceRef:
@@ -129,7 +129,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress
+    - name: 2-istio-ingress
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -155,8 +155,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio-ingress
-    - name: prometheus-stack
+    - name: 2-istio-ingress
+    - name: 3-prometheus-stack
   interval: 10m0s
   sourceRef:
     kind: GitRepository
@@ -182,11 +182,11 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: envconfigs
-    - name: infra
-    - name: data
-    - name: istio-ingress
-    - name: observability
+    - name: 0-envconfigs
+    - name: 5-infra
+    - name: 6-data
+    - name: 2-istio-ingress
+    - name: 4-observability
   interval: 10m0s
   sourceRef:
     kind: GitRepository
