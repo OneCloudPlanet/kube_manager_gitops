@@ -5,10 +5,10 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra
-    - name: data
-    - name: istio-ingress
-    - name: envspecific
+    - name: 5-infra
+    - name: 6-data
+    - name: 2-istio-ingress
+    - name: 7-envspecific
   interval: 5m
   path: ./apps/prod-nl
   prune: true
