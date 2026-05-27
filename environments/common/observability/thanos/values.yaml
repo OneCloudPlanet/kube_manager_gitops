@@ -9,6 +9,9 @@ existingObjstoreSecretItems:
       path: objstore.yml
 storegateway:
   enabled: true
+  extraFlags:
+    - "--block-sync-concurrency=4"
+    - "--store.grpc.series-max-concurrency=10"
   readinessProbe:
     initialDelaySeconds: 60
     periodSeconds: 10
