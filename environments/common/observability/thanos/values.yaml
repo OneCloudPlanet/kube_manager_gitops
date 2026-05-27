@@ -9,6 +9,8 @@ existingObjstoreSecretItems:
       path: objstore.yml
 storegateway:
   enabled: true
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeOutboundPorts: "443"
   extraFlags:
     - "--block-sync-concurrency=4"
     - "--store.grpc.series-max-concurrency=10"
