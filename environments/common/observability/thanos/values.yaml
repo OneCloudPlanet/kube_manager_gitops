@@ -12,8 +12,9 @@ storegateway:
   podAnnotations:
     sidecar.istio.io/inject: "false"
   extraFlags:
-    - "--block-sync-concurrency=4"
+    - "--block-sync-concurrency=2"
     - "--store.grpc.series-max-concurrency=10"
+    - "--store.enable-index-header-lazy-reader=true"
   readinessProbe:
     initialDelaySeconds: 60
     periodSeconds: 10
