@@ -13,7 +13,11 @@ spec:
         name: bitnami
         namespace: monitoring
   interval: 1h0m0s
+  timeout: 30m
   install:
+    remediation:
+      retries: 3
+  upgrade:
     remediation:
       retries: 3
   valuesFrom:
