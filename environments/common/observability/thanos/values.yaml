@@ -14,7 +14,7 @@ storegateway:
   extraFlags:
     - "--block-sync-concurrency=2"
     - "--store.grpc.series-max-concurrency=10"
-    - "--store.enable-index-header-lazy-reader=true"
+    - "--store.enable-index-header-lazy-reader"
   readinessProbe:
     initialDelaySeconds: 60
     periodSeconds: 10
