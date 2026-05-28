@@ -38,6 +38,7 @@ prometheus:
             bucket: "${THANOS_BUCKET}"
             access_key: "${THANOS_ACCESS_KEY_ID}"
             secret_key: "${THANOS_ACCESS_SECRET_KEY}"
+            list_objects_version: "v1"
             http_config:
               idle_conn_timeout: 30s
               response_header_timeout: 60s
