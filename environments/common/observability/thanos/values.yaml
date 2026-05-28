@@ -1,7 +1,7 @@
 image:
   registry: quay.io
   repository: thanos/thanos
-  tag: v0.35.1
+  tag: v0.41.0
 
 existingObjstoreSecret: "prometheus-stack-kube-prom-prometheus"
 existingObjstoreSecretItems: 
