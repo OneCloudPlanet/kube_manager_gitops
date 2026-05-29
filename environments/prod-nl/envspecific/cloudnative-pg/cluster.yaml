@@ -30,7 +30,7 @@ spec:
     - name: postgres-backup
       barmanObjectStore:
         destinationPath: "s3://${CNPG_BUCKET}/${CNPG_BUCKET}/"
-        endpointURL: "https://${CNPG_ENDPOINTURL}"
+        endpointURL: "${CNPG_ENDPOINTURL}"
         serverName: postgres
         s3Credentials:
           accessKeyId:
