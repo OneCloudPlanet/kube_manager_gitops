@@ -188,6 +188,8 @@ spec:
     - name: 2-istio-ingress
     - name: 4-observability
   interval: 10m0s
+  wait: true
+  timeout: 30m
   sourceRef:
     kind: GitRepository
     name: flux-system

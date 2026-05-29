@@ -31,6 +31,7 @@ spec:
       barmanObjectStore:
         destinationPath: "s3://${CNPG_BUCKET}"
         endpointURL: "${CNPG_ENDPOINTURL}"
+        serverName: postgres
         s3Credentials:
           accessKeyId:
             name: s3
