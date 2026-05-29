@@ -24,7 +24,7 @@ data:
   OPENSTACK_ADMIN_PROJECT: "admin"
   # ── DB backups
   CNPG_BUCKET: "k8s-nl-backup"
-  CNPG_ENDPOINTURL: "https://k8s-nl-backup.s3.ua-central-1.ocplanet.cloud"
+  CNPG_ENDPOINTURL: "s3.ua-central-1.ocplanet.cloud"
   # ── Loki
   LOKI_BUCKET: "k8s-nl-metrics"
   LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"

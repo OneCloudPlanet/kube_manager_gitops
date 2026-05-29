@@ -29,8 +29,8 @@ spec:
   externalClusters:
     - name: postgres-backup
       barmanObjectStore:
-        destinationPath: "s3://${CNPG_BUCKET}/"
-        endpointURL: "${CNPG_ENDPOINTURL}"
+        destinationPath: "s3://${CNPG_BUCKET}/${CNPG_BUCKET}/"
+        endpointURL: "https://${CNPG_ENDPOINTURL}"
         serverName: postgres
         s3Credentials:
           accessKeyId:
@@ -77,7 +77,7 @@ spec:
   
   backup:
     barmanObjectStore:
-      destinationPath: "s3://${CNPG_BUCKET}"
+      destinationPath: "s3://${CNPG_BUCKET}/${CNPG_BUCKET}/"
       endpointURL: "${CNPG_ENDPOINTURL}"
       s3Credentials:
         accessKeyId:
