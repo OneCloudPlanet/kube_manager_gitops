@@ -189,7 +189,12 @@ spec:
     - name: 4-observability
   interval: 10m0s
   wait: true
-  timeout: 30m
+  timeout: 10m
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: cnpg
   sourceRef:
     kind: GitRepository
     name: flux-system
