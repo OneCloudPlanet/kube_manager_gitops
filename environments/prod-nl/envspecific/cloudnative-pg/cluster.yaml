@@ -3,8 +3,8 @@ kind: Cluster
 metadata:
   name: postgres
   namespace: cnpg
-  annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: enabled
+#  annotations:     # need only for full recovery
+#    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
 
