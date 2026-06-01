@@ -1,9 +1,9 @@
 application:
   debug: "0"
-  allowedHosts: "k8s-pl.ocplanet.cloud, *"
-  allowedFrontends: "https://k8s-pl.ocplanet.cloud" # was: allowedOrigins
+  allowedHosts: "${HOST}"
+  allowedFrontends: "https://${HOST}"
   logLevel: "DEBUG"
-  region: "pl"
+  region: "${REGION}"
 
 database:
   host: "postgres-rw.cnpg.svc.cluster.local"
@@ -15,17 +15,17 @@ redis:
   port: "6379"
 
 openstack:
-  authUrl: "https://pub.eu-east-1.ocplanet.cloud:5000/v3"
-  domain: "default"
-  region: "eu-east-1"
-  externalNetwork: "28d4587f-466f-4ba0-abcc-930fef48cbdc"
-  externalSubnet: "cfadb8db-6056-4114-baa1-c2b5d8245493"
-  adminProject: "admin"
-  outputIp: "91.211.91.14"
+  authUrl: "${OPENSTACK_AUTH_URL}"
+  domain: "${OPENSTACK_DOMAIN}"
+  region: "${OPENSTACK_REGION}"
+  externalNetwork: "${OPENSTACK_EXTERNAL_NETWORK}"
+  externalSubnet: "${OPENSTACK_EXTERNAL_SUBNET}"
+  adminProject: "${OPENSTACK_ADMIN_PROJECT}"
+  outputIp: "${OUTPUT_IP}"
 
 telegram:
   enabled: "1"
-  groupId: "-5173881460"
+  groupId: "${TELEGRAM_CHAT_ID}"
 
 openTelemetry:
   enabled: "1"

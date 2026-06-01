@@ -2,7 +2,9 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
-  namespace: cnpg  
+  namespace: cnpg
+#  annotations:     # need only for full recovery
+#    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
 
@@ -29,8 +31,9 @@ spec:
   externalClusters:
     - name: postgres-backup
       barmanObjectStore:
-        destinationPath: "s3://${CNPG_BUCKET}"
+        destinationPath: "s3://${CNPG_BUCKET}/${CNPG_BUCKET}/"
         endpointURL: "${CNPG_ENDPOINTURL}"
+        serverName: postgres
         s3Credentials:
           accessKeyId:
             name: s3
@@ -76,7 +79,7 @@ spec:
   
   backup:
     barmanObjectStore:
-      destinationPath: "s3://${CNPG_BUCKET}"
+      destinationPath: "s3://${CNPG_BUCKET}/${CNPG_BUCKET}/"
       endpointURL: "${CNPG_ENDPOINTURL}"
       s3Credentials:
         accessKeyId:

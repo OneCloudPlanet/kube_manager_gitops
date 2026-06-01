@@ -6,6 +6,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/ssa: merge
 data:
+  REGION: "ua"
   DOMAIN: "ocplanet.cloud"
   PROJECT: "kube-manager"
   ENVIRONMENT: "kube-ua"
@@ -13,9 +14,17 @@ data:
   EMAIL_DOMAIN: "info@onecloudplanet.com"
   CLOUDFLARE_EMAIL: "info@onecloudplanet.com"
   ISTIO_VERSION: "1.24.2"
+  OUTPUT_IP: "2.59.221.243"
+  # ── OpenStack
+  OPENSTACK_AUTH_URL: "https://pub.ua-central-1.ocplanet.cloud:5000/v3"
+  OPENSTACK_DOMAIN: "default"
+  OPENSTACK_REGION: "ua-central-1"
+  OPENSTACK_EXTERNAL_NETWORK: "5cf72c55-b9cd-4706-862a-6bc4c3e41bfc"
+  OPENSTACK_EXTERNAL_SUBNET: "7e21d26b-f92a-4265-a073-c4abef1fbd9b"
+  OPENSTACK_ADMIN_PROJECT: "admin"
   # ── DB backups
   CNPG_BUCKET: "k8s-ua-backup"
-  CNPG_ENDPOINTURL: "https://k8s-ua-backup.s3.ua-central-1.ocplanet.cloud"
+  CNPG_ENDPOINTURL: "https://s3.ua-central-1.ocplanet.cloud"
   # ── Loki
   LOKI_BUCKET: "k8s-ua-metrics"
   LOKI_ENDPOINT: "s3.ua-central-1.ocplanet.cloud"
