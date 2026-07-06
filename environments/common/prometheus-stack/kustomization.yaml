@@ -6,6 +6,7 @@ resources:
   - namespace.yaml
   - helmrepository.yaml
   - helmrelease.yaml
+  - grafana-plugin-provisioning.yaml
   - virtualservices.yaml
 configMapGenerator:
   - name: flux-grafana-dashboards

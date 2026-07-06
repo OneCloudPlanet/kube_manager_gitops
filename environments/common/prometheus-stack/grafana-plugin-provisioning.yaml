@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-plugin-provisioning
+data:
+  lokiexplore.yaml: |
+    apiVersion: 1
+    apps:
+      - type: grafana-lokiexplore-app
+        org_id: 1
+        disabled: false

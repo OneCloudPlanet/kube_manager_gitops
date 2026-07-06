@@ -168,6 +168,14 @@ alertmanager:
           parse_mode: ''
 
 grafana:
+  plugins:
+    - grafana-lokiexplore-app
+  extraConfigmapMounts:
+    - name: grafana-plugin-provisioning
+      configMap: grafana-plugin-provisioning
+      mountPath: /etc/grafana/provisioning/plugins/lokiexplore.yaml
+      subPath: lokiexplore.yaml
+      readOnly: true
   sidecar:
     datasources:
       defaultDatasourceEnabled: false
